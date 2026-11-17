@@ -14,6 +14,16 @@ jobs:
         with:
           node-version: '24'
       - run: node --test web/*.test.cjs
+      - name: Check Ubuntu container startup
+        run: |
+          docker build -f deploy/Dockerfile -t familyboard:test .
+          docker run -d --name familyboard-test -p 127.0.0.1:8790:8790 familyboard:test
+          for attempt in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:8790/api/state | grep -q '"revision":0'; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:8790/api/state | grep '"revision":0'
+          docker stop familyboard-test
       - run: |
           mkdir -p dist/familyboard-server
           cp -R web deploy README.md dist/familyboard-server/

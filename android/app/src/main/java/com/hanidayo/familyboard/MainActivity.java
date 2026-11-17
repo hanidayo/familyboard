@@ -53,6 +53,9 @@ public class MainActivity extends Activity {
     }
     private void setup() {
         timer.removeCallbacks(displayTick);
+        if (web!=null) {web.destroy();web=null;}
+        WindowManager.LayoutParams lighting=getWindow().getAttributes();lighting.screenBrightness=-1f;getWindow().setAttributes(lighting);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         LinearLayout form = new LinearLayout(this); form.setOrientation(LinearLayout.VERTICAL); form.setPadding(60,40,60,40); form.setBackgroundColor(Color.rgb(249,247,240));
         TextView title = new TextView(this); title.setText("FamilyBoard · 거실 전광판"); title.setTextSize(30); form.addView(title);
         TextView help = new TextView(this); help.setText("태블릿에서 Tailscale을 켜고 Ubuntu 서버 주소를 입력하세요.\n예시 주소는 실제 접속 주소가 아닙니다."); help.setPadding(0,20,0,20); form.addView(help);

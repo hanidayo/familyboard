@@ -14,6 +14,7 @@
   window.FamilyBoardDevice={status:()=>({blackout:page==='board'&&isBlackout(),locked:!!state.controls.locked})};
   let importTarget='father',searchMember='father',searchSerial=0,schoolResults=[],backend={schoolSearch:false,documentAnalysis:false};
   state.members ||= {first:{name:'첫째',sourceType:'document',school:null},second:{name:'둘째',sourceType:'document',school:null},father:{name:'아빠',sourceType:'school',school:clone(source.schoolSnapshot.school)}};
+  for(const member of Object.values(state.members))if(member.school&&!member.school.code)member.school=null;
   state.schoolPublished ||= {father:{...clone(source.schoolSnapshot),schoolCode:source.schoolSnapshot.school.code,officeCode:source.schoolSnapshot.school.officeCode,limited:true}};
   state.schoolDraft ||= {};state.docMeta ||= {};
   state.draft.father ||= {};state.published.father ||= {};state.approved.father ??= false;state.dirty.father ??= false;
