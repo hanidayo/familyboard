@@ -1,0 +1,22 @@
+[Unit]
+Description=FamilyBoard private family dashboard
+After=network-online.target
+
+[Service]
+Type=simple
+User=familyboard
+WorkingDirectory=/opt/familyboard/web
+EnvironmentFile=/etc/familyboard.env
+Environment=HOST=127.0.0.1
+Environment=PORT=8790
+Environment=FAMILYBOARD_DATA_DIR=/var/lib/familyboard
+Environment=HOME=/var/lib/familyboard
+StateDirectory=familyboard
+ExecStart=/usr/bin/node /opt/familyboard/web/server.cjs
+Restart=on-failure
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,2 @@
+/* 공개 소스: 가족 원본 자료와 학교 연결 정보를 포함하지 않습니다. */
+window.FB_SOURCE={schemaVersion:1,referenceDate:'2026-11-17',timezone:'Asia/Seoul',week:[],sources:{first:{title:'자료 등록 필요',notes:'',period:'',original:''},second:{title:'자료 등록 필요',notes:'',period:'',original:''}},meals:{first:{},second:{}},events:[],unknowns:['날씨·미세먼지 API 미연결'],fidelityNotes:[],allergenLegend:{},schoolSnapshot:{school:{name:'학교 연결 필요',officeCode:'',code:''},meals:{},sourceUrl:'https://open.neis.go.kr'}};

@@ -1,0 +1,133 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "periodStart",
+    "periodEnd",
+    "meals",
+    "events",
+    "reviewNotes"
+  ],
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "periodStart": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "periodEnd": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reviewNotes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "date",
+          "am",
+          "lunch",
+          "pm",
+          "kcal",
+          "sourceText",
+          "needsReview"
+        ],
+        "properties": {
+          "date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "am": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "lunch": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pm": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kcal": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "sourceText": {
+            "type": "string"
+          },
+          "needsReview": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "date",
+          "title",
+          "time",
+          "detail",
+          "supplies",
+          "sourceText"
+        ],
+        "properties": {
+          "date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "time": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "detail": {
+            "type": "string"
+          },
+          "supplies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sourceText": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

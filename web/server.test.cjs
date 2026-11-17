@@ -1,0 +1,6 @@
+const test=require('node:test'),assert=require('node:assert/strict');
+const {validDate,parseNeis,mapSchool}=require('./server.cjs');
+test('날짜 검증: 윤년과 실제 달력을 따르고 없는 날짜를 거절한다',()=>{assert.equal(validDate('2028-02-29'),true);assert.equal(validDate('2026-02-29'),false);assert.equal(validDate('2026-11-31'),false);assert.equal(validDate('2026-11-17'),true);assert.equal(validDate(null),false);});
+test('급식 자료 없음과 상위 시스템 오류를 구분한다',()=>{assert.deepEqual(parseNeis({RESULT:{CODE:'INFO-200'}},'mealServiceDietInfo'),{rows:[],total:0});assert.throws(()=>parseNeis({RESULT:{CODE:'ERROR-300'}},'mealServiceDietInfo'),{status:502});});
+test('정상 급식 응답의 날짜와 학교코드를 그대로 보존한다',()=>{const row={MLSV_YMD:'20261117',SD_SCHUL_CODE:'7010110'};const result=parseNeis({mealServiceDietInfo:[{head:[{list_total_count:1},{RESULT:{CODE:'INFO-000'}}]},{row:[row]}]},'mealServiceDietInfo');assert.equal(result.total,1);assert.deepEqual(result.rows,[row]);});
+test('학교 연결은 이름만이 아니라 교육청 코드와 학교 코드를 함께 사용한다',()=>{const mapped=mapSchool({SCHUL_NM:'창덕여자고등학교',ATPT_OFCDC_SC_CODE:'B10',SD_SCHUL_CODE:'7010110',LCTN_SC_NM:'서울특별시',ORG_RDNMA:'서울특별시 송파구 양재대로 1240',SCHUL_KND_SC_NM:'고등학교'});assert.equal(mapped.officeCode,'B10');assert.equal(mapped.code,'7010110');assert.equal(mapped.region,'서울특별시');});

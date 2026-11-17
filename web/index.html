@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#305748"><title>FamilyBoard · 우리 가족의 하루</title>
+  <meta name="description" content="가로형 태블릿 가족 알림판과 아이폰 관리 화면. 실제 안내문 기준 로컬 시안.">
+  <link rel="stylesheet" href="styles.css"><script defer src="data.js"></script><script defer src="ai-options.js"></script><script defer src="device-clock.js"></script><script defer src="runtime.js"></script><script defer src="bootstrap.js"></script>
+</head>
+<body>
+  <nav class="previewbar" aria-label="시안 화면 선택">
+    <a href="#board" class="brand-mini"><span class="brand-icon">⌂</span> FamilyBoard <span class="proto-label">가족 알림판</span></a>
+    <div class="preview-tabs"><a href="#board">태블릿</a><a href="#admin">아이폰 관리</a><a href="#guide">설계 노트</a></div>
+    <span class="local-note">가족 전용 · 날씨 연결 전</span>
+  </nav>
+  <main id="app"></main>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <dialog id="modal"><div id="modal-content"></div><button class="modal-close" aria-label="닫기" data-action="close-modal">×</button></dialog>
+  <noscript>시안을 보려면 JavaScript를 허용해 주세요.</noscript>
+</body>
+</html>

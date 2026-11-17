@@ -1,0 +1,60 @@
+name: Build FamilyBoard
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node --test web/*.test.cjs
+      - run: |
+          mkdir -p dist/familyboard-server
+          cp -R web deploy README.md dist/familyboard-server/
+          tar -czf dist/FamilyBoard-server-public.tar.gz -C dist familyboard-server
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FamilyBoard-server-public
+          path: dist/FamilyBoard-server-public.tar.gz
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.14.3'
+      - run: gradle -p android assembleDebug
+      - run: |
+          mkdir -p dist
+          cp android/app/build/outputs/apk/debug/app-debug.apk dist/FamilyBoard-Android-test.apk
+          "$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)/apksigner" verify --verbose dist/FamilyBoard-Android-test.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FamilyBoard-Android-test
+          path: dist/FamilyBoard-Android-test.apk
+  ios:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install xcodegen
+      - run: bash ios/build-unsigned.sh
+      - run: |
+          test -f ios/build/package/Payload/FamilyBoard.app/FamilyBoard
+          file ios/build/package/Payload/FamilyBoard.app/FamilyBoard
+          if codesign -dv ios/build/package/Payload/FamilyBoard.app 2>/dev/null; then echo 'Unexpected signing'; exit 1; fi
+          unzip -t ios/build/FamilyBoard-iOS-unsigned.ipa
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FamilyBoard-iOS-unsigned
+          path: ios/build/FamilyBoard-iOS-unsigned.ipa

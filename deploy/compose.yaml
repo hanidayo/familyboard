@@ -1,0 +1,13 @@
+services:
+  familyboard:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8790:8790"
+    env_file: settings.env
+    volumes:
+      - familyboard-data:/data
+volumes:
+  familyboard-data:
