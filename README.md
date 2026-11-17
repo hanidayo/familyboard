@@ -2,6 +2,8 @@
 
 가로형 안드로이드 태블릿의 가족 알림판과 아이폰 관리 앱입니다. Ubuntu 서버를 Tailscale HTTPS 주소로 연결합니다. 기본 순서는 첫째 → 둘째 → 아빠이며 이름과 학교를 바꿀 수 있습니다.
 
+0.1.1부터 선택한 ‘가족 보드’ 디자인을 앱·웹 아이콘에 사용합니다. 아이폰은 불투명 1024px 원본을, 안드로이드는 모양별 잘림을 고려한 어댑티브 아이콘을 포함합니다. 웹의 홈 화면 바로가기에도 같은 디자인을 사용합니다. 아이콘 원본은 `brand/app-icon-1024.png`입니다.
+
 ## 설치 파일
 
 [Actions → Build FamilyBoard](https://github.com/hanidayo/familyboard/actions/workflows/build.yml)의 성공한 실행에서 Artifacts를 내려받습니다.
